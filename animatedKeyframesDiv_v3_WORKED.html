@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .animated-div {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+      position: relative;
+      cursor: pointer; /* Add pointer cursor when hovering */
+    }
+
+    .animation-active {
+      animation-name: moveAnimation;
+      animation-duration: 3s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+    }
+
+    .animation-reversed {
+      animation-name: moveAnimationReverse;
+    }
+
+    @keyframes moveAnimation {
+      0% {
+        transform: translateY(0) translateX(0);
+      }
+      33% {
+        transform: translateY(300px) translateX(0);
+      }
+      66% {
+        transform: translateY(300px) translateX(300px);
+      }
+      100% {
+        transform: translateY(0) translateX(300px);
+      }
+    }
+
+    @keyframes moveAnimationReverse {
+      0% {
+        transform: translateY(0) translateX(300px);
+      }
+      33% {
+        transform: translateY(300px) translateX(300px);
+      }
+      66% {
+        transform: translateY(300px) translateX(0);
+      }
+      100% {
+        transform: translateY(0) translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-div"></div>
+
+  <script>
+    const div = document.querySelector('.animated-div');
+    let isReversed = false;
+
+    div.addEventListener('click', () => {
+      div.style.animation = 'none'; // Remove the current animation
+      div.offsetWidth; // Trigger a reflow to apply the style change
+      if (!isReversed) {
+        div.style.animation = 'moveAnimation 3s ease-in-out forwards';
+      } else {
+        div.style.animation = 'moveAnimationReverse 3s ease-in-out forwards';
+      }
+      isReversed = !isReversed;
+    });
+  </script>
+</body>
+</html>
